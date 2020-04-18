@@ -1,3 +1,2 @@
 # nVoice
-package - pipenv, requests, 
-test1
+package - pipenv, requests, pysoundfile, numpy
