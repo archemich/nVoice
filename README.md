@@ -1,2 +1,3 @@
 # nVoice
-package - pipenv, requests, curl
+package - pipenv, requests, 
+test
