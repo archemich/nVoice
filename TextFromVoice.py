@@ -1,5 +1,5 @@
 from getToken import getIAMToken
-from PcnToWav import convert
+from PcmToWav import convert
 import soundfile as sf
 import urllib.request
 import os
