@@ -1,5 +1,4 @@
 import time
-import winsound
 import os
 import TextFromVoice as tts
 
@@ -23,5 +22,3 @@ class Clock:
             tts.getVoiceFromText(text)
             time.sleep(1)
             os.startfile(os.path.dirname(__file__) + "/audio/AudioResult.wav")
-
-Clock.Reminder(0.001,"Эээээээээээээээээээ")
