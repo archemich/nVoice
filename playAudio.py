@@ -4,8 +4,12 @@ import time
 import sys
 import os
 
-def play_audio():
-    with wave.open("/home/artem/PycharmProjects/nVoice" + "/audio/AudioResult.wav", "rb") as wf:
+def play_audio(name = None):
+
+    if(name == None):
+        name = "AudioResult"
+
+    with wave.open(os.path.dirname(__file__) + "/audio/" + name + ".wav", "rb") as wf:
 
         # instantiate PyAudio (1)
         p = pyaudio.PyAudio()
