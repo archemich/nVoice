@@ -77,5 +77,3 @@ def getVoiceFromText(text = "Это тест ало ало", audio_name = 'Audio
             f.write(audio_content)
 
     convert(os.path.dirname(__file__) + '/workfiles/' + name, os.path.dirname(__file__) + '/audio/' + audio_name + '.wav')
-
-print(getTextFromVoice("AudioResult"))
