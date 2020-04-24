@@ -72,8 +72,11 @@ def getVoiceToBin(text):
 #Синтез голоса
 # getVoiceFromText(<текст>, <название аудиофайла с синтезированным голосом>, <промежуточный файл(не рекомендуется менять)>)
 def getVoiceFromText(text = "Это тест ало ало", audio_name = 'AudioResult', name = 'output.pcm'):
-    with open(os.path.dirname(__file__) + '/workfiles/' + name, "wb") as f:
+    with open(os.path.dirname(__file__) + '/workfiles/' + name, "wb" ) as f:
         for audio_content in getVoiceToBin(text):
             f.write(audio_content)
 
     convert(os.path.dirname(__file__) + '/workfiles/' + name, os.path.dirname(__file__) + '/audio/' + audio_name + '.wav')
+
+getVoiceFromText("Привет, ты кто")
+print(getTextFromVoice('AudioResult'))
