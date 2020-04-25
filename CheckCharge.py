@@ -18,8 +18,7 @@ def charge_status():
     system_power_status = _SYSTEM_POWER_STATUS()
     result = windll.kernel32.GetSystemPowerStatus(byref(system_power_status))
 
-    #charge = system_power_status.BatteryLifePercent
-    charge = 100
+    charge = system_power_status.BatteryLifePercent
 
     if (charge == 100):
         getVoiceFromText(text = "nVoice полностью зар+яжен!")
@@ -57,6 +56,6 @@ def accurate_charge_percent ():
     getVoiceFromText("Заряд nVoice равен {}%".format(charge))
     play_audio()
 
-#accurate_charge_percent()
-charge_status()
 
+charge_status()
+accurate_charge_percent()
