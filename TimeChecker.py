@@ -129,7 +129,7 @@ def localtime():
     elif (int(correct_time[0]) >= 0 and int(correct_time[0]) < 4):
 
         if (correct_time[0] == 0):
-        correct_time[0] = 12
+            correct_time[0] = 12
 
         if (int(correct_time[1]) == 0):
             if (int(correct_time[0]) == 1):
