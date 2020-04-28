@@ -10,11 +10,11 @@ def localtime():
     #Для проверки
 
     #часы 
-    #correct_time[0] = 1
+    #correct_time[0] = 23
     #минуты
-    #correct_time[1] = 0
+    #correct_time[1] = 16
     #секунды
-    #correct_time[2] = 0
+    #correct_time[2] = 10
 
     #Утро
 
@@ -27,25 +27,33 @@ def localtime():
                 getVoiceFromText(text= "Сейчас ровно {} утра.".format(int(correct_time[0])))
 
         elif (int(correct_time[2]) == 0):
-            if (int(correct_time[1]) == 1):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минута".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минуты".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минут".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) <= 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 == 0):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            else:
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+
+        elif (int(correct_time[2])%10 <= 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif (int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif (int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) > 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 > 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
@@ -54,9 +62,9 @@ def localtime():
 
     elif (int(correct_time[0]) >= 13 and int(correct_time[0]) < 17):
 
-        correct_time[0] = int(correct_time[0]) - 12
-
         if (int(correct_time[1]) == 0):
+            correct_time[0] = int(correct_time[0]) - 12
+
             if (int(correct_time[0]) == 1):
                 getVoiceFromText(text= "Сейчас ровно час дня.")
             elif(int(correct_time[0]) >= 2 and int(correct_time[0]) <= 4):
@@ -65,25 +73,33 @@ def localtime():
                 getVoiceFromText(text= "Сейчас ровно {} часов дня.".format(int(correct_time[0])))
 
         elif (int(correct_time[2]) == 0):
-            if (int(correct_time[1]) == 1):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минута".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минуты".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минут".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) <= 4):
-            if (int(correct_time[1]) == 1):
-                getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
-                getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            else:
-                getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-
-        elif (int(correct_time[2]) > 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 == 0):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            else:
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+
+        elif (int(correct_time[2])%10 <= 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            else:
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+
+        elif (int(correct_time[2])%10 > 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
@@ -101,25 +117,33 @@ def localtime():
                 getVoiceFromText(text= "Сейчас ровно {} вечера.".format(int(correct_time[0])))
 
         elif (int(correct_time[2]) == 0):
-            if (int(correct_time[1]) == 1):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минута".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минуты".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минут".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) <= 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 == 0):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            else:
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+                
+        elif (int(correct_time[2])%10 <= 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) > 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 > 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
@@ -140,27 +164,37 @@ def localtime():
                 getVoiceFromText(text= "Сейчас ровно {} часов н+очи.".format(int(correct_time[0])))
 
         elif (int(correct_time[2]) == 0):
-            if (int(correct_time[1]) == 1):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минута".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минуты".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас ровно {} часов и {} минут".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) <= 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 == 0):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+            else:
+                getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
+
+        elif (int(correct_time[2])%10 <= 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунды".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
-        elif (int(correct_time[2]) > 4):
-            if (int(correct_time[1]) == 1):
+        elif (int(correct_time[2])%10 > 4):
+            if (int(correct_time[1])%10 == 1 and int(correct_time[1]) >= 20):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минута и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
-            elif(int(correct_time[1]) >= 2 and int(correct_time[1]) <= 4):
+            elif(int(correct_time[1])%10 >= 2 and int(correct_time[1])%10 <= 4):
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минуты и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
             else:
                 getVoiceFromText(text= "Местное время сейчас {} часов, {} минут и {} секунд".format(int(correct_time[0]),int(correct_time[1]),int(correct_time[2])))
 
     play_audio()
+
+localtime()
