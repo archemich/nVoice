@@ -1,24 +1,10 @@
 from TextFromVoice import getVoiceFromText
 from playAudio import play_audio
-from ctypes import windll, Structure, c_byte, c_ulong, byref
-
-class _SYSTEM_POWER_STATUS(Structure):
-        _fields_ = [
-            ('ACLineStatus', c_byte),
-            ('BatteryFlag', c_byte),
-            ('BatteryLifePercent', c_byte),
-            ('Reserved1', c_byte),
-            ('BatteryLifeTime', c_ulong),
-            ('BatteryFullLifeTime', c_ulong)
-        ]
+import psutil
 
 def charge_status():
-    
 
-    system_power_status = _SYSTEM_POWER_STATUS()
-    result = windll.kernel32.GetSystemPowerStatus(byref(system_power_status))
-
-    charge = system_power_status.BatteryLifePercent
+    charge = psutil.sensors_battery().percent
 
     if (charge == 100):
         getVoiceFromText(text = "nVoice полностью зар+яжен!")
@@ -42,16 +28,13 @@ def charge_status():
         getVoiceFromText(text= "nVoice зар+яжен менее чем на 10%,- стоит поискать розетку!")
     
     elif (charge >= 5):
-        getVoiceFromText(text= "nVoice почти разр+яжен, заряда акуммулятора осталось менее чем 5%! !")
+        getVoiceFromText(text= "nVoice почти разр+яжен, заряда акуммулятора осталось менее чем 5%!")
 
     play_audio()
 
 def accurate_charge_percent ():
-
-    system_power_status = _SYSTEM_POWER_STATUS()
-    result = windll.kernel32.GetSystemPowerStatus(byref(system_power_status))
-
-    charge = system_power_status.BatteryLifePercent
+    
+    charge = psutil.sensors_battery().percent
 
     getVoiceFromText("Заряд nVoice равен {}%".format(charge))
     play_audio()
