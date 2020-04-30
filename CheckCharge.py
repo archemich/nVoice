@@ -15,13 +15,13 @@ def charge_status():
     elif (charge >= 60):
         getVoiceFromText(text= "nVoice зар+яжен более чем на половину,- не беспок+ойтесь!")
 
-    elif (charge  < 60 and charge >=40):
+    elif (charge  < 60 and charge >= 40):
         getVoiceFromText(text= "nVoice зар+яжен на половину.")
 
     elif (charge < 40 and charge >= 20):
         getVoiceFromText(text= "nVoice зар+яжен менее чем на 40%.")
 
-    elif (charge < 20 and charge >10):
+    elif (charge < 20 and charge > 10):
         getVoiceFromText(text= "nVoice зар+яжен менее чем на 20%")
 
     elif (charge <= 10 and charge > 6):

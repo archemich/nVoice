@@ -1,19 +1,21 @@
 import pyaudio
 import wave
 import os
-
+from playAudio import play_audio
+from TextFromVoice import getTextFromVoice
+from TextFromVoice import getVoiceFromText
 
 def record(audio_name = None):
 
     if(audio_name == None):
-        audio_name = 'AudioResult'
+        audio_name = 'AudioResult.wav'
 
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     CHANNELS = 2
     RATE = 44100
     RECORD_SECONDS = 30
-    WAVE_OUTPUT_FILENAME = os.path.dirname(__file__) + '/audio/' + audio_name + '.wav'
+    WAVE_OUTPUT_FILENAME = os.path.dirname(__file__) + '/audio/' + audio_name
 
     p = pyaudio.PyAudio()
 
@@ -23,15 +25,12 @@ def record(audio_name = None):
                     input=True,
                     frames_per_buffer=CHUNK)
 
-    print("* recording")
 
     frames = []
 
     for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         data = stream.read(CHUNK)
         frames.append(data)
-
-    print("* done recording")
 
     stream.stop_stream()
     stream.close()
@@ -44,4 +43,7 @@ def record(audio_name = None):
     wf.writeframes(b''.join(frames))
     wf.close()
 
+
 record()
+play_audio()
+print(getTextFromVoice(name = "AudioResult"))
