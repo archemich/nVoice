@@ -36,9 +36,5 @@ def accurate_charge_percent ():
     
     charge = psutil.sensors_battery().percent
 
-    getVoiceFromText("Заряд nVoice равен {}%".format(charge))
+    getVoiceFromText("Заряд nVoice равен {}%".format(int(charge)))
     play_audio()
-
-
-charge_status()
-accurate_charge_percent()
