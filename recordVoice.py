@@ -14,8 +14,7 @@ def record(audio_name = None):
     FORMAT = pyaudio.paInt16
     CHANNELS = 2
     RATE = 44100
-    RECORD_SECONDS = 30
-    WAVE_OUTPUT_FILENAME = os.path.dirname(__file__) + '/audio/' + audio_name
+    RECORD_SECONDS = 5
 
     p = pyaudio.PyAudio()
 
@@ -36,14 +35,12 @@ def record(audio_name = None):
     stream.close()
     p.terminate()
 
-    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-    wf.setnchannels(CHANNELS)
-    wf.setsampwidth(p.get_sample_size(FORMAT))
-    wf.setframerate(RATE)
-    wf.writeframes(b''.join(frames))
-    wf.close()
+    with wave.open(os.path.dirname(__file__) + 'audio/' + audio_name, 'wb') as f:
+        f.setnchannels(CHANNELS)
+        f.setsampwidth(p.get_sample_size(FORMAT))
+        f.setframerate(RATE)
+        f.writeframes(b''.join(frames))
 
 
 record()
-play_audio()
 print(getTextFromVoice(name = "AudioResult"))
