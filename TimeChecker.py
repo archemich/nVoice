@@ -92,5 +92,3 @@ def localtime():
             support_func(correct_time)
 
     play_audio()
-
-localtime()
