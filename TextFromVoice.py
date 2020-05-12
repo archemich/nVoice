@@ -18,10 +18,12 @@ IAM_TOKEN = getIAMToken(OATH_TOKEN)
 #Распознавание голоса
 def RecordRecognizeVoice():
     r = sr.Recognizer()
+    answer = None
     with sr.Microphone(device_index=1) as first:
         print("Говорите...")
         r.adjust_for_ambient_noise(first, duration=1)
         audio = r.listen(first)
+
     try:
         answer = r.recognize_google(audio, language="ru-RU").lower()
     except sr.UnknownValueError:
