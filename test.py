@@ -4,3 +4,4 @@ from TextFromVoice import *
 
 record()
 print(getTextFromVoice("AudioResult"))
+
