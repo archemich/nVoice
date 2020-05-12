@@ -19,7 +19,7 @@ def RecordRecognizeVoice():
     r = sr.Recognizer()
     with sr.Microphone(device_index=1) as first:
         print("Говорите...")
-        r.adjust_for_ambient_noise(first, duration=5)
+        r.adjust_for_ambient_noise(first, duration=3)
         audio = r.listen(first)
     try:
         answer = r.recognize_google(audio, language="ru-RU").lower()
