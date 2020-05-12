@@ -5,6 +5,6 @@ def convert(name, auido_name):
         pcmdata = pcmfile.read()
 
     with wave.open(auido_name, 'wb') as f:
-        f.setparams((1, 2, 44100, 1, 'NONE', 'NONE'))
+        f.setparams((1, 2, 22050, 1, 'NONE', 'NONE'))
         f.writeframes(pcmdata)
         
