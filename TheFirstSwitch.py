@@ -6,23 +6,6 @@ from TextFromVoice import *
 getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
 play_audio()
 
-def command():
-
-    r = sr.Recognizer()
-    with sr.Microphone(device_index=1) as first:
-        print("Говорите...")
-        r.adjust_for_ambient_noise(first, duration=1)
-        audio = r.listen(first)
-    try:
-        otvet = r.recognize_google(audio, language="ru-RU").lower()
-        print("Вы сказали: " + otvet)
-    except sr.UnknownValueError:
-        getVoiceFromText("Простите, я не рассл+ышала.")
-        play_audio()     
-        otvet = command()
- 
-    return otvet 
-
 def zadanie(otvet):
 
     if 'нет' in otvet:
@@ -51,4 +34,4 @@ def zadanie(otvet):
         return name    
                   
 while True:
-     zadanie(command())
+     zadanie(RecordRecognizeVoice())

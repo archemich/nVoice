@@ -1,7 +1,11 @@
 from getToken import getIAMToken
 from PcmToWav import convert
+from playAudio import play_audio
+
+import speech_recognition as sr
 import soundfile as sf
 import urllib.request
+
 import os
 import requests
 import json
@@ -11,41 +15,20 @@ FOLDER_ID = "b1g888iudohmdqgobtgp"
 IAM_TOKEN = getIAMToken(OATH_TOKEN)
 
 
-#Распознавание голоса
-#getTextFromVoice(<Название файла(должен находиться в audio)>)
-def getTextFromVoice(name = None):
+def RecordRecognizeVoice():
+    r = sr.Recognizer()
+    with sr.Microphone(device_index=1) as first:
+        print("Говорите...")
+        r.adjust_for_ambient_noise(first, duration=5)
+        audio = r.listen(first)
+    try:
+        answer = r.recognize_google(audio, language="ru-RU").lower()
+    except sr.UnknownValueError:
+        getVoiceFromText("Простите, я не рассл+ышала.")
+        play_audio()
+        RecordRecognizeVoice()
 
-    if(name == None):
-        with open(os.path.dirname(__file__) + "/audio/testvoice.ogg", "rb") as f:
-            data = f.read()
-    else:
-        #конвертация с wav в ogg
-        test, samplerate = sf.read(os.path.dirname(__file__) + "/audio/" + name + '.wav')
-        sf.write(os.path.dirname(__file__) + "/audio/" + name + '.ogg', test, samplerate)
-
-        #считывание
-        with open(os.path.dirname(__file__) + "/audio/" + name + '.ogg', "rb") as f:
-            data = f.read()
-
-    params = "&".join([
-        "topic=general",
-        "folderId=%s" % FOLDER_ID,
-        "lang=ru-RU"
-    ])
-
-    url = urllib.request.Request("https://stt.api.cloud.yandex.net/speech/v1/stt:recognize?%s" % params, data=data)
-    url.add_header("Authorization", "Bearer %s" % IAM_TOKEN)
-
-    responseData = urllib.request.urlopen(url).read().decode('UTF-8')
-    decodedData = json.loads(responseData)
-
-    if decodedData.get("error_code") is None:
-        try:
-            return decodedData.get("result")
-        except:
-            return decodedData.get("result")
-    else:
-        return "Повторите запрос"
+    return answer
 
 
 def getVoiceToBin(text):
@@ -80,3 +63,4 @@ def getVoiceFromText(text = "Это тест ало ало", audio_name = 'Audio
             f.write(audio_content)
 
     convert(os.path.dirname(__file__) + '/workfiles/' + name, os.path.dirname(__file__) + '/audio/' + audio_name + '.wav')
+
