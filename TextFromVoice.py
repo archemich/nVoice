@@ -40,7 +40,10 @@ def getTextFromVoice(name = None):
     decodedData = json.loads(responseData)
 
     if decodedData.get("error_code") is None:
-        return decodedData.get("result")
+        try:
+            return decodedData.get("result")
+        except:
+            return decodedData.get("result")
     else:
         return "Повторите запрос"
 
