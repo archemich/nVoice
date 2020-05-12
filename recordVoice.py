@@ -13,7 +13,7 @@ def record(audio_name = None):
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
-    RATE = 22050
+    RATE = 44100
     RECORD_SECONDS = 15 #max 30 sec
 
     p = pyaudio.PyAudio()

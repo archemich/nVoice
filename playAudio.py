@@ -22,7 +22,7 @@ def play_audio(name = None):
         # open stream using callback (3)
         stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                         channels=1,
-                        rate=22050,
+                        rate=48100,
                         output=True,
                         stream_callback=callback)
 
