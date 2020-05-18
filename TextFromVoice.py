@@ -10,28 +10,36 @@ import os
 import requests
 import json
 
+import time
+
 OATH_TOKEN = "AgAAAAAeCyRwAATuwXnnaPI4v01HhOBOFIRtvlM"
-FOLDER_ID = "b1gdvhpbknjqks4r1dng"
+FOLDER_ID = "b1g4p0345drfontkmgh0"
 IAM_TOKEN = getIAMToken(OATH_TOKEN)
 
+r = sr.Recognizer()
+m = sr.Microphone(device_index=0)
 
 #Распознавание голоса
-def RecordRecognizeVoice():
-    r = sr.Recognizer()
-    answer = None
-    with sr.Microphone(device_index=1) as first:
-        print("Говорите...")
-        r.adjust_for_ambient_noise(first, duration=1)
-        audio = r.listen(first)
-
+def recognize(recognizer, audio):
     try:
-        answer = r.recognize_google(audio, language="ru-RU").lower()
-    except sr.UnknownValueError:
-        getVoiceFromText("Простите, я не рассл+ышала.")
-        play_audio()
-        RecordRecognizeVoice()
+        voice = r.recognize_google(audio, language="ru-RU").lower()
+        print("Распознано: " + voice)
 
-    return answer
+    except sr.UnknownValueError:
+        getVoiceFromText("Голос не распознан!")
+        play_audio()
+    except sr.RequestError:
+        getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
+        play_audio()
+
+#Запись голоса
+def record():
+    with m as source:
+        r.adjust_for_ambient_noise(source)
+    stop_listening = r.listen_in_background(m, recognize)
+    
+    while True: 
+        time.sleep(0.1)
 
 
 def getVoiceToBin(text):
@@ -66,4 +74,3 @@ def getVoiceFromText(text = "Это тест ало ало", audio_name = 'Audio
             f.write(audio_content)
 
     convert(os.path.dirname(__file__) + '/workfiles/' + name, os.path.dirname(__file__) + '/audio/' + audio_name + '.wav')
-

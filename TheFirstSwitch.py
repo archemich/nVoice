@@ -33,5 +33,3 @@ def zadanie(otvet):
 
         return name    
                   
-while True:
-     zadanie(RecordRecognizeVoice())
