@@ -32,7 +32,7 @@ def charge_status():
 
     play_audio()
 
-def accurate_charge_percent ():
+def accurate_charge_percent():
     
     charge = psutil.sensors_battery().percent
 

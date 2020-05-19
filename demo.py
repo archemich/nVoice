@@ -2,7 +2,7 @@ from playAudio import play_audio
 from fuzzywuzzy import fuzz
 from TextFromVoice import getVoiceFromText
 from TimeChecker import localtime
-from CheckCharge import charge_status
+from CheckCharge import accurate_charge_percent
 
 import speech_recognition as sr
 import os
@@ -54,13 +54,8 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
         "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
-             'startStopwatch': ('запусти секундомер', "включи секундомер", "засеки время"),
-             'stopStopwatch': ('останови секундомер', "выключи секундомер", "останови"),
-             "stupid1": ('расскажи анекдот', 'рассмеши меня', 'ты знаешь анекдоты', "шутка", "прикол"),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
-             "shutdown": ('выключи', 'выключить', 'отключение', 'отключи', 'выключи компьютер'),
-             "conv": ("валюта", "конвертер","доллар",'руб','евро'),
-             "internet": ("открой", "вк", "гугл", "сайт", 'вконтакте', "ютуб"),
+             "shutdown": ('выключи', 'выключить', 'отключение', 'отключи'),
              "translator": ("переводчик","translate"),
              "deals": ("дела","делишки", 'как сам', 'как дела')}}
 
@@ -82,19 +77,7 @@ def execute_cmd(cmd):
         getVoiceFromText("Выключаюсь...")
         play_audio()
     elif cmd == 'charge':
-        charge_status()
-    elif cmd == 'conv':
-        pass
-    elif cmd == 'translator':
-        pass
-    elif cmd == 'stupid1':
-        pass
-    elif cmd == 'internet':
-        pass
-    elif cmd == 'startStopwatch':
-        pass
-    elif cmd == "stopStopwatch":
-        pass
+        accurate_charge_percent()
     elif cmd == 'deals':
         getVoiceFromText("У меня все хорошо")
         play_audio()
