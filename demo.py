@@ -1,14 +1,40 @@
 from playAudio import play_audio
 from fuzzywuzzy import fuzz
 from TextFromVoice import getVoiceFromText
-from TextFromVoice import *
-from TextFromVoice import record
 
 import speech_recognition as sr
 import os
+import time
 
+r = sr.Recognizer()
+m = sr.Microphone(device_index=0)
 
-opts = {"alias": ('nvoice', 'Нвойс', 'Энвойс'),
+global voice
+
+#Распознавание голоса
+def recognize(recognizer, audio):
+    try:
+        voice = r.recognize_google(audio, language="ru-RU").lower()
+        print("Распознано: " + voice)
+        choice()
+
+    except sr.UnknownValueError:
+        getVoiceFromText("Голос не распознан!")
+        play_audio()
+    except sr.RequestError:
+        getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
+        play_audio()
+
+#Запись голоса
+def record():
+    with m as source:
+        r.adjust_for_ambient_noise(source)
+    stop_listening = r.listen_in_background(m, recognize)
+    
+    while True: 
+        time.sleep(0.1)
+
+opts = {"alias": ('nvoice', 'Нвойс', 'Энвойс', 'Инвойс', 'voice'),
         "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),

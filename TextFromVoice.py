@@ -19,28 +19,6 @@ IAM_TOKEN = getIAMToken(OATH_TOKEN)
 r = sr.Recognizer()
 m = sr.Microphone(device_index=0)
 
-#Распознавание голоса
-def recognize(recognizer, audio):
-    try:
-        voice = r.recognize_google(audio, language="ru-RU").lower()
-        print("Распознано: " + voice)
-
-    except sr.UnknownValueError:
-        getVoiceFromText("Голос не распознан!")
-        play_audio()
-    except sr.RequestError:
-        getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
-        play_audio()
-
-#Запись голоса
-def record():
-    with m as source:
-        r.adjust_for_ambient_noise(source)
-    stop_listening = r.listen_in_background(m, recognize)
-    
-    while True: 
-        time.sleep(0.1)
-
 
 def getVoiceToBin(text):
     url = 'https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize'
