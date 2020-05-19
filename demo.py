@@ -9,7 +9,7 @@ import time
 r = sr.Recognizer()
 m = sr.Microphone(device_index=0)
 
-global voice
+global voice = 'str'
 
 #Распознавание голоса
 def recognize(recognizer, audio):
