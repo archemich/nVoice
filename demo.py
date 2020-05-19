@@ -16,7 +16,18 @@ def recognize(recognizer, audio):
     try:
         voice = r.recognize_google(audio, language="ru-RU").lower()
         print("Распознано: " + voice)
-        choice()
+        if voice.startswith(opts["alias"]):
+            cmd = voice
+
+            for x in opts['alias']:
+                cmd = cmd.replace(x, "").strip()
+
+            for x in opts['tbr']:
+                cmd = cmd.replace(x, "").strip()
+            voice = cmd
+            # распознаем и выполняем команду
+            cmd = recognize_cmd(cmd)
+            execute_cmd(cmd['cmd'])
 
     except sr.UnknownValueError:
         getVoiceFromText("Голос не распознан!")
@@ -25,12 +36,14 @@ def recognize(recognizer, audio):
         getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
         play_audio()
 
+    
+
 #Запись голоса
 def record():
     with m as source:
         r.adjust_for_ambient_noise(source)
     stop_listening = r.listen_in_background(m, recognize)
-    
+
     while True: 
         time.sleep(0.1)
 
@@ -83,22 +96,7 @@ def execute_cmd(cmd):
         getVoiceFromText("У меня все хорошо")
         play_audio()
     else:
-        print("Команда не распознана!")
-
-def choice():
-    #Выбор команды 
-    if voice.startswith(opts["alias"]):
-        cmd = voice
-
-        for x in opts['alias']:
-            cmd = cmd.replace(x, "").strip()
-
-        for x in opts['tbr']:
-            cmd = cmd.replace(x, "").strip()
-        voice = cmd
-        # распознаем и выполняем команду
-        cmd = recognize_cmd(cmd)
-        execute_cmd(cmd['cmd'])
+        print("Команда не распознана!") 
 
 
 record()
