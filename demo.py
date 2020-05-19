@@ -1,6 +1,8 @@
 from playAudio import play_audio
 from fuzzywuzzy import fuzz
 from TextFromVoice import getVoiceFromText
+from TimeChecker import localtime
+from CheckCharge import charge_status
 
 import speech_recognition as sr
 import os
@@ -24,6 +26,7 @@ def recognize(recognizer, audio):
 
             for x in opts['tbr']:
                 cmd = cmd.replace(x, "").strip()
+
             voice = cmd
             # распознаем и выполняем команду
             cmd = recognize_cmd(cmd)
@@ -47,14 +50,14 @@ def record():
     while True: 
         time.sleep(0.1)
 
-opts = {"alias": ('nvoice', 'Нвойс', 'Энвойс', 'Инвойс', 'voice'),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет'),
+opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс'),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              'startStopwatch': ('запусти секундомер', "включи секундомер", "засеки время"),
              'stopStopwatch': ('останови секундомер', "выключи секундомер", "останови"),
              "stupid1": ('расскажи анекдот', 'рассмеши меня', 'ты знаешь анекдоты', "шутка", "прикол"),
-             "calc": ('прибавить','умножить','разделить','степень','вычесть','поделить','х','+','-','/'),
+             "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
              "shutdown": ('выключи', 'выключить', 'отключение', 'отключи', 'выключи компьютер'),
              "conv": ("валюта", "конвертер","доллар",'руб','евро'),
              "internet": ("открой", "вк", "гугл", "сайт", 'вконтакте', "ютуб"),
@@ -73,13 +76,13 @@ def recognize_cmd(cmd):
 
 def execute_cmd(cmd):
     if cmd == 'ctime':
-        pass
+        localtime()
     elif cmd == 'shutdown':
         os.system('shutdown -s')
         getVoiceFromText("Выключаюсь...")
         play_audio()
-    elif cmd == 'calc':
-        pass
+    elif cmd == 'charge':
+        charge_status()
     elif cmd == 'conv':
         pass
     elif cmd == 'translator':
