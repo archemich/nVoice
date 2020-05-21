@@ -21,7 +21,7 @@ def recognize(recognizer, audio):
     try:
         voice = r.recognize_google(audio, language="ru-RU").lower()
         print("Распознано: " + voice)
-        if voice.startswith(opts["alias"]):
+        if opts["alias"] in voice:
             cmd = voice
 
             for x in opts['alias']:
