@@ -10,7 +10,7 @@ def command():
     while True:
         with sr.Microphone(device_index=1) as first:
             print("Говорите...")
-            r.adjust_for_ambient_noise(first, duration=1)
+            r.adjust_for_ambient_noise(first, duration=0)
             audio = r.listen(first)
         try:
             otvet = r.recognize_google(audio, language="ru-RU").lower()
@@ -34,7 +34,7 @@ def zadanie(otvet):
         r = sr.Recognizer()
         with sr.Microphone(device_index=1) as second:
             print("Говорите...")
-            r.adjust_for_ambient_noise(second, duration=1)
+            r.adjust_for_ambient_noise(second, duration=0)
             source = r.listen(second)
         try:
             name = r.recognize_google(source, language="ru-RU").lower()
