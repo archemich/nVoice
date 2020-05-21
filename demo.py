@@ -17,9 +17,8 @@ m = sr.Microphone(device_index=0)
 voice = 'str'
 
 #Распознавание голоса
-def recognize(recognizer, audio):
+def recognize(voice):
     try:
-        voice = r.recognize_google(audio, language="ru-RU").lower()
         print("Распознано: " + voice)
         for _ in opts["alias"]:
             if _ in voice:
@@ -35,6 +34,7 @@ def recognize(recognizer, audio):
                 # распознаем и выполняем команду
                 cmd = recognize_cmd(cmd)
                 execute_cmd(cmd['cmd'])
+                break
 
     except sr.UnknownValueError:
         pass
@@ -46,14 +46,18 @@ def recognize(recognizer, audio):
 
 #Запись голоса
 def record():
-    with m as source:
-        r.adjust_for_ambient_noise(source)
-    stop_listening = r.listen_in_background(m, recognize)
+    with sr.Microphone(device_index=1) as first:
+        print("Говорите...")
+        r.adjust_for_ambient_noise(first, duration=0)
+        audio = r.listen(first)
+        try:
+            otvet = r.recognize_google(audio, language="ru-RU").lower()
+            recognize(otvet)
+            
+        except sr.UnknownValueError:
+            pass
 
-    while True: 
-        time.sleep(0.1)
-
-opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'инвалид', 'in ice', 'on ice', 'нвс', 'android', 'конвой', 'он возит', personal_name),
+opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'in ice', 'on ice', 'нвс', 'android', 'конвой', 'он возит', personal_name),
         "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
@@ -86,5 +90,5 @@ def execute_cmd(cmd):
     else:
         print("Команда не распознана!") 
 
-
-record()
+while True:
+    record()
