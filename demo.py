@@ -3,10 +3,13 @@ from fuzzywuzzy import fuzz
 from TextFromVoice import getVoiceFromText
 from TimeChecker import localtime
 from CheckCharge import accurate_charge_percent
+from TheFirstSwitch import *
 
 import speech_recognition as sr
 import os
 import time
+
+personal_name = zadanie(command()).lower()
 
 r = sr.Recognizer()
 m = sr.Microphone(device_index=0)
@@ -33,8 +36,7 @@ def recognize(recognizer, audio):
             execute_cmd(cmd['cmd'])
 
     except sr.UnknownValueError:
-        getVoiceFromText("Голос не распознан!")
-        play_audio()
+        pass
     except sr.RequestError:
         getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
         play_audio()
@@ -50,13 +52,12 @@ def record():
     while True: 
         time.sleep(0.1)
 
-opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'инвалид', 'in ice', 'on ice', 'нвс', 'android', 'конвой', 'он возит'),
+opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'инвалид', 'in ice', 'on ice', 'нвс', 'android', 'конвой', 'он возит', personal_name),
         "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
              "shutdown": ('выключи', 'выключить', 'отключение', 'отключи'),
-             "translator": ("переводчик","translate"),
              "deals": ("дела","делишки", 'как сам', 'как дела')}}
 
 def recognize_cmd(cmd):
