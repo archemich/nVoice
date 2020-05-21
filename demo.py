@@ -21,19 +21,20 @@ def recognize(recognizer, audio):
     try:
         voice = r.recognize_google(audio, language="ru-RU").lower()
         print("Распознано: " + voice)
-        if voice.find(opts["alias"]) != -1:
-            cmd = voice
+        for _ in opts["alias"]:
+            if _ in voice:
+                cmd = voice
 
-            for x in opts['alias']:
-                cmd = cmd.replace(x, "").strip()
+                for x in opts['alias']:
+                    cmd = cmd.replace(x, "").strip()
 
-            for x in opts['tbr']:
-                cmd = cmd.replace(x, "").strip()
+                for x in opts['tbr']:
+                    cmd = cmd.replace(x, "").strip()
 
-            voice = cmd
-            # распознаем и выполняем команду
-            cmd = recognize_cmd(cmd)
-            execute_cmd(cmd['cmd'])
+                voice = cmd
+                # распознаем и выполняем команду
+                cmd = recognize_cmd(cmd)
+                execute_cmd(cmd['cmd'])
 
     except sr.UnknownValueError:
         pass
