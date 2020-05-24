@@ -23,11 +23,11 @@ def command():
 def zadanie(otvet):
 
     name = 'nvoice'
-    if 'нет' in otvet:
+    if 'нет' or 'нет, не желаю' or 'нет, не хочу' or 'не желаю' or 'не хочу' or 'конечно нет' or 'конечно же нет' or 'никак нет' or 'не интересно' or 'не надо' or 'неа' or 'вряд ли' or 'думаю нет' in otvet:
         getVoiceFromText("Хорошо, имя nVoice остается.")
         play_audio()  
 
-    elif 'да' in otvet:
+    elif 'да' or 'да, желаю' or 'да, хочу' or 'желаю' or 'хочу' or 'конечно' or 'конечно да' or 'разумеется' or 'так точно' or 'думаю да' or 'давай посмотрим' or 'ну давай ' or 'давай' or 'агу' or 'ага' or 'угу' or 'ок' or 'окей' in otvet:
         getVoiceFromText("Произнесите н+овое имя.")
         play_audio()
 
