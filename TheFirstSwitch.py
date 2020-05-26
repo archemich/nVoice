@@ -3,6 +3,8 @@ from pyglet import text
 from playAudio import play_audio
 from TextFromVoice import *
 
+google_access_token = 'AIzaSyDn9D53ztPOLR5bGyQdjkxpRR3PCkNVJ5c'
+
 def command():
     getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
     play_audio()
@@ -13,7 +15,7 @@ def command():
             r.adjust_for_ambient_noise(first, duration=0)
             audio = r.listen(first)
         try:
-            otvet = r.recognize_google(audio, language="ru-RU").lower()
+            otvet = r.recognize_google(audio, google_access_token, language="ru-RU").lower()
             print("Вы сказали: " + otvet)
             return otvet
         except sr.UnknownValueError:

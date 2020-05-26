@@ -4,6 +4,9 @@ from TextFromVoice import getVoiceFromText
 from TimeChecker import localtime
 from CheckCharge import accurate_charge_percent
 from TheFirstSwitch import *
+import requests
+import json
+
 
 import speech_recognition as sr
 import os
@@ -14,12 +17,28 @@ personal_name = zadanie(command()).lower()
 r = sr.Recognizer()
 m = sr.Microphone(device_index=0)
 
-voice = 'str'
+google_access_token = 'AIzaSyDn9D53ztPOLR5bGyQdjkxpRR3PCkNVJ5c'
+ 
+def RecognizeSpeech():
+    voice = ''
+    with m as f:
+        print("Говорите...")
+        audio = r.adjust_for_ambient_noise(f)
+        audio = r.listen(f)
+        try:
+            voice = r.recognize_google(audio, google_access_token, "ru-RU").lower()
+            
+        except sr.UnknownValueError:
+            pass
+        except sr.RequestError:
+            pass
+        
+    return voice
+    
 
 #Распознавание голоса
 def recognize(voice):
     try:
-        print("Распознано: " + voice)
         for _ in opts["alias"]:
             if _ in voice:
                 cmd = voice
@@ -31,7 +50,6 @@ def recognize(voice):
                     cmd = cmd.replace(x, "").strip()
 
                 voice = cmd
-                # распознаем и выполняем команду
                 cmd = recognize_cmd(cmd)
                 execute_cmd(cmd['cmd'])
                 break
@@ -42,28 +60,14 @@ def recognize(voice):
         getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
         play_audio()
 
-    
 
-#Запись голоса
-def record():
-    with sr.Microphone(device_index=1) as first:
-        print("Говорите...")
-        r.adjust_for_ambient_noise(first, duration=0)
-        audio = r.listen(first)
-        try:
-            otvet = r.recognize_google(audio, language="ru-RU").lower()
-            recognize(otvet)
-            
-        except sr.UnknownValueError:
-            pass
-
-opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'in ice', 'on ice', 'нвс', 'android', 'конвой', 'он возит', personal_name),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как','сколько','поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
+opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
              "shutdown": ('выключи', 'выключить', 'отключение', 'отключи'),
-             "deals": ("дела","делишки", 'как сам', 'как дела')}}
+             "deals": ("дела","делишки", 'сам', 'у тебя дела')}}
 
 def recognize_cmd(cmd):
     RC = {'cmd': '', 'percent': 0}
@@ -73,13 +77,17 @@ def recognize_cmd(cmd):
             if vrt > RC['percent']:
                 RC['cmd'] = c
                 RC['percent'] = vrt
-    return RC
+    if(RC['percent'] >= 50):
+        return RC
+    else:
+        print("Команда не распознана!") 
+        return {'cmd': 'none'}
 
 def execute_cmd(cmd):
-    if cmd == 'ctime':
+    if cmd == 'ctime' :
         localtime()
     elif cmd == 'shutdown':
-        os.system('shutdown -s')
+        #os.system('shutdown -s')
         getVoiceFromText("Выключаюсь...")
         play_audio()
     elif cmd == 'charge':
@@ -87,8 +95,12 @@ def execute_cmd(cmd):
     elif cmd == 'deals':
         getVoiceFromText("У меня все хорошо")
         play_audio()
-    else:
-        print("Команда не распознана!") 
+    
 
-while True:
-    record()
+
+if __name__ == "__main__":
+    time = 3
+    while True:
+        text = RecognizeSpeech()
+        print("\nYou said: {}".format(text))
+        recognize(text)
