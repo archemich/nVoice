@@ -3,9 +3,11 @@ from pyglet import text
 from playAudio import play_audio
 from TextFromVoice import *
 
+getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
+play_audio()
+
 def command():
-    getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
-    play_audio()
+    
     r = sr.Recognizer()
     while True:
         with sr.Microphone(device_index=1) as first:
@@ -21,16 +23,20 @@ def command():
             play_audio()
 
 def zadanie(otvet):
+    f = open('answer.txt', 'w')
 
     name = 'nvoice'
-    if 'нет' or 'нет, не желаю' or 'нет, не хочу' or 'не желаю' or 'не хочу' or 'конечно нет' or 'конечно же нет' or 'никак нет' or 'не интересно' or 'не надо' or 'неа' or 'вряд ли' or 'думаю нет' in otvet:
+    if 'нет' in otvet:
+        answer = 'nvoice'
+        f.write(answer)
+        f.close()
+
         getVoiceFromText("Хорошо, имя nVoice остается.")
         play_audio()  
 
-    elif 'да' or 'да, желаю' or 'да, хочу' or 'желаю' or 'хочу' or 'конечно' or 'конечно да' or 'разумеется' or 'так точно' or 'думаю да' or 'давай посмотрим' or 'ну давай ' or 'давай' or 'агу' or 'ага' or 'угу' or 'ок' or 'окей' in otvet:
+    elif 'да' in otvet:
         getVoiceFromText("Произнесите н+овое имя.")
         play_audio()
-
         r = sr.Recognizer()
         with sr.Microphone(device_index=1) as second:
             print("Говорите...")
@@ -41,6 +47,11 @@ def zadanie(otvet):
             print("Вы сказали: " + name)
             getVoiceFromText("Прекр+асно! Теперь мое второе имя " + name.lower())
             play_audio()
+
+            answer = name
+            f.write(answer)
+            f.close()
+
         except sr.UnknownValueError:
             getVoiceFromText("Простите, я не рассл+ышала.")
             play_audio()    
@@ -48,4 +59,7 @@ def zadanie(otvet):
         getVoiceFromText("В вашем ответе не прозвучало да или нет. Имя останется прежним.")
         play_audio()
 
-    return name    
+    return name  
+
+while True:
+    zadanie(command())      
