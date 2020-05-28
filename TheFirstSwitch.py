@@ -3,11 +3,9 @@ from pyglet import text
 from playAudio import play_audio
 from TextFromVoice import *
 
-getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
-play_audio()
-
 def command():
-    
+    getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
+    play_audio()
     r = sr.Recognizer()
     while True:
         with sr.Microphone(device_index=1) as first:
@@ -61,5 +59,4 @@ def zadanie(otvet):
 
     return name  
 
-while True:
-    zadanie(command())      
+     
