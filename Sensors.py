@@ -46,6 +46,9 @@ def all_sensors_status():
     sensor_CO2_status()
     sensor_temp_status()
     sensor_humidity_status()
+<<<<<<< HEAD
 
 
     
+=======
+>>>>>>> demo

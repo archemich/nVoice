@@ -1,23 +1,13 @@
 from getToken import getIAMToken
 from PcmToWav import convert
-from playAudio import play_audio
-
-import speech_recognition as sr
-import soundfile as sf
-import urllib.request
 
 import os
 import requests
-import json
 
-import time
 
 OATH_TOKEN = "AgAAAAAeCyRwAATuwXnnaPI4v01HhOBOFIRtvlM"
 FOLDER_ID = "b1g4p0345drfontkmgh0"
 IAM_TOKEN = getIAMToken(OATH_TOKEN)
-
-r = sr.Recognizer()
-m = sr.Microphone(device_index=0)
 
 
 def getVoiceToBin(text):
