@@ -23,16 +23,20 @@ def command():
             play_audio()
 
 def zadanie(otvet):
+    f = open('answer.txt', 'w')
 
     name = 'nvoice'
     if 'нет' in otvet:
+        answer = 'nvoice'
+        f.write(answer)
+        f.close()
+
         getVoiceFromText("Хорошо, имя nVoice остается.")
         play_audio()  
 
     elif 'да' in otvet:
         getVoiceFromText("Произнесите н+овое имя.")
         play_audio()
-
         r = sr.Recognizer()
         with sr.Microphone(device_index=1) as second:
             print("Говорите...")
@@ -43,6 +47,11 @@ def zadanie(otvet):
             print("Вы сказали: " + name)
             getVoiceFromText("Прекр+асно! Теперь мое второе имя " + name.lower())
             play_audio()
+
+            answer = name
+            f.write(answer)
+            f.close()
+
         except sr.UnknownValueError:
             getVoiceFromText("Простите, я не рассл+ышала.")
             play_audio()    
@@ -50,4 +59,6 @@ def zadanie(otvet):
         getVoiceFromText("В вашем ответе не прозвучало да или нет. Имя останется прежним.")
         play_audio()
 
-    return name    
+    return name  
+
+     
