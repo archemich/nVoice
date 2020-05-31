@@ -4,6 +4,7 @@ from TextFromVoice import getVoiceFromText
 from TimeChecker import localtime
 from CheckCharge import accurate_charge_percent
 from TheFirstSwitch import *
+from SupportTFS import *
 import requests
 import json
 
@@ -12,7 +13,7 @@ import speech_recognition as sr
 import os
 import time
 
-personal_name = zadanie(command()).lower()
+personal_name = new_name()
 
 r = sr.Recognizer()
 m = sr.Microphone(device_index=0)
