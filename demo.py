@@ -5,6 +5,7 @@ from TimeChecker import localtime
 from CheckCharge import accurate_charge_percent
 from TheFirstSwitch import *
 from SupportTFS import *
+from Sensors import * 
 import requests
 import json
 
@@ -63,12 +64,17 @@ def recognize(voice):
 
 
 opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'поставь','переведи', "засеки",'запусти','сколько будет', 'насколько'),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
              "shutdown": ('выключи', 'выключить', 'отключение', 'отключи'),
-             "deals": ("дела","делишки", 'сам', 'у тебя дела')}}
+             "deals": ('дела','делишки', 'сам', 'у тебя дела'),
+             "temperature": ('темпер', 'температура', 'градус'),
+             "humudity": ('влажность', 'влажн'),
+             "co2": ('цо2', 'co2', 'углекислый газ', 'газ'),
+             "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты')
+             }}
 
 def recognize_cmd(cmd):
     RC = {'cmd': '', 'percent': 0}
@@ -96,6 +102,14 @@ def execute_cmd(cmd):
     elif cmd == 'deals':
         getVoiceFromText("У меня все хорошо")
         play_audio()
+    elif cmd == 'temperature':
+        sensor_temp_status()
+    elif cmd == 'humudity':
+        sensor_humidity_status()
+    elif cmd == 'co2':
+        sensor_CO2_status()
+    elif cmd == 'commonCond':
+        all_sensors_status()
     
 
 
