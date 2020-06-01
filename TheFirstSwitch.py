@@ -59,6 +59,11 @@ def zadanie(otvet):
     else:
         getVoiceFromText("В вашем ответе не прозвучало да или нет. Имя останется прежним.")
         play_audio()
+        
+        f = open('answer.txt', 'w')
+        answer = 'nvoice'
+        f.write(answer)
+        f.close()
 
     return name  
 
