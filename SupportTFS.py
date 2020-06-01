@@ -12,8 +12,10 @@ def new_name():
         f.close()
         getVoiceFromText("Прив+ет!" + string + "снова с вами")
         play_audio()
+        return string
     
     except FileNotFoundError:
         print('Заданное имя отсутствует') 
         TFS = zadanie(command()).lower()
+        return TFS
 
