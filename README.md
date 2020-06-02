@@ -1,6 +1,6 @@
 # nVoice
 Вам необходимо установить следующее (Используйте команду "pip install ПАКЕТз" терминале 2 - powershell):
-Пакеты: requests, pysoundfile, numpy, pyaudio,  psutil, SpeechRecognition, pyglet, fuzzywuzzy, python-Levenshtein.
+Пакеты: requests, pysoundfile, numpy, pyaudio,  psutil, SpeechRecognition, pyglet, fuzzywuzzy, python-Levenshtein, pyowm.
 
 С пакетом pyaudio могут возникнуть проблемы
 Для их решения необходимо проверить вашу версию питона, если она является 3.8.2, необходимо установить более старую версию python (3.6.10) ссылка на скачивание: https://www.python.org/downloads/release/python-368/ . Скачиваем файл "Windows x86-64 executable installer".

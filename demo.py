@@ -6,6 +6,7 @@ from CheckCharge import accurate_charge_percent
 from TheFirstSwitch import *
 from SupportTFS import *
 from Sensors import * 
+from Weather import get_city
 import requests
 import json
 
@@ -53,7 +54,7 @@ def recognize(voice):
 
                 voice = cmd
                 cmd = recognize_cmd(cmd)
-                execute_cmd(cmd['cmd'])
+                execute_cmd(cmd['cmd'], voice)
                 break
 
     except sr.UnknownValueError:
@@ -70,10 +71,11 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
              "shutdown": ('выключи', 'выключить', 'отключение', 'отключи'),
              "deals": ('дела','делишки', 'сам', 'у тебя дела'),
-             "temperature": ('темпер', 'температура', 'градус'),
+             "temperature": ('температура в комнате', 'градусов в комнате', 'температур'),
              "humudity": ('влажность', 'влажн'),
              "co2": ('цо2', 'co2', 'углекислый газ', 'газ'),
-             "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты')
+             "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты'),
+             "weather": ('погода в', 'погода')
              }}
 
 def recognize_cmd(cmd):
@@ -90,7 +92,7 @@ def recognize_cmd(cmd):
         print("Команда не распознана!") 
         return {'cmd': 'none'}
 
-def execute_cmd(cmd):
+def execute_cmd(cmd, voice):
     if cmd == 'ctime' :
         localtime()
     elif cmd == 'shutdown':
@@ -110,11 +112,12 @@ def execute_cmd(cmd):
         sensor_CO2_status()
     elif cmd == 'commonCond':
         all_sensors_status()
+    elif cmd == 'weather':
+        get_city(voice)
     
 
 
 if __name__ == "__main__":
-    time = 3
     while True:
         text = RecognizeSpeech()
         print("\nYou said: {}".format(text))
