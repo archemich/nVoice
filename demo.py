@@ -6,6 +6,7 @@ from CheckCharge import accurate_charge_percent
 from TheFirstSwitch import *
 from SupportTFS import *
 from Sensors import * 
+from ChangeName import *
 from Weather import get_city
 import requests
 import json
@@ -65,7 +66,7 @@ def recognize(voice):
 
 
 opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько'),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
@@ -75,7 +76,8 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "humudity": ('влажность', 'влажн'),
              "co2": ('цо2', 'co2', 'углекислый газ', 'газ'),
              "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты'),
-             "weather": ('погода в', 'погода')
+             "weather": ('погода в', 'погода'),
+             "changename": ('имя', 'название')
              }}
 
 def recognize_cmd(cmd):
@@ -114,8 +116,9 @@ def execute_cmd(cmd, voice):
         all_sensors_status()
     elif cmd == 'weather':
         get_city(voice)
+    elif cmd == 'changename':
+        ChangeName()    
     
-
 
 if __name__ == "__main__":
     while True:
