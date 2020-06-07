@@ -21,14 +21,14 @@ def ChangeName():
     try:
         name = r.recognize_google(audio, google_access_token, language="ru-RU").lower()
         print("Вы сказали: " + name)
-        getVoiceFromText("Прекр+асно! Теперь мое второе имя " + name.lower())
+        getVoiceFromText("Прекр+асно! Теперь мое второе имя " + name.lower() + ". Перезапуст+и+те колонку для применения изменений")
         play_audio()
 
         answer = name
         f.write(answer)
         f.close()
+        return answer
 
     except sr.UnknownValueError:
         getVoiceFromText("Простите, я не рассл+ышала.")
-        play_audio()   
-        return ChangeName
+        play_audio()

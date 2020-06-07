@@ -23,41 +23,55 @@ m = sr.Microphone(device_index=0)
 
 google_access_token = 'AIzaSyDn9D53ztPOLR5bGyQdjkxpRR3PCkNVJ5c'
  
+def activate():
+    try:
+        with m as source:
+            r.adjust_for_ambient_noise(source)
+            audio = r.listen(source)
+            transcript = r.recognize_google(audio, google_access_token, "ru-RU")
+            print(transcript)
+            if (transcript.lower()).startswith(opts['alias']):
+                return True
+            else:
+                return False
+    except:
+        return False
+
 def RecognizeSpeech():
-    voice = ''
-    with m as f:
-        print("Говорите...")
-        audio = r.adjust_for_ambient_noise(f)
-        audio = r.listen(f)
-        try:
-            voice = r.recognize_google(audio, google_access_token, "ru-RU").lower()
+    if activate() == True:
+        voice = ''
+        with m as f:
+            print("Говорите...")
+            getVoiceFromText("pip")
+            play_audio()
+            audio = r.adjust_for_ambient_noise(f)
+            audio = r.listen(f)
+            try:
+                voice = r.recognize_google(audio, google_access_token, "ru-RU").lower()
+                print(voice)
+                    
+            except sr.UnknownValueError:
+                pass
+            except sr.RequestError:
+                pass
+
+            recognize(voice)
             
-        except sr.UnknownValueError:
-            pass
-        except sr.RequestError:
-            pass
         
-    return voice
     
 
 #Распознавание голоса
 def recognize(voice):
     try:
-        for _ in opts["alias"]:
-            if _ in voice:
-                cmd = voice
+        
+        cmd = voice
 
-                for x in opts['alias']:
-                    cmd = cmd.replace(x, "").strip()
+        for x in opts['tbr']:
+            cmd = cmd.replace(x, "").strip()
 
-                for x in opts['tbr']:
-                    cmd = cmd.replace(x, "").strip()
-
-                voice = cmd
-                cmd = recognize_cmd(cmd)
-                execute_cmd(cmd['cmd'], voice)
-                break
-
+        voice = cmd
+        cmd = recognize_cmd(cmd)
+        execute_cmd(cmd['cmd'], voice)
     except sr.UnknownValueError:
         pass
     except sr.RequestError:
@@ -66,7 +80,7 @@ def recognize(voice):
 
 
 opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим'),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим', 'поменяй', 'измени'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
@@ -117,11 +131,13 @@ def execute_cmd(cmd, voice):
     elif cmd == 'weather':
         get_city(voice)
     elif cmd == 'changename':
-        ChangeName()    
+        personal_name = ChangeName()
+        print(personal_name)
+
+    getVoiceFromText('pibip')  
+    play_audio()
     
 
 if __name__ == "__main__":
     while True:
-        text = RecognizeSpeech()
-        print("\nYou said: {}".format(text))
-        recognize(text)
+        RecognizeSpeech()
