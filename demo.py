@@ -16,19 +16,16 @@ import speech_recognition as sr
 import os
 import time
 
-personal_name = new_name()
-
 r = sr.Recognizer()
 m = sr.Microphone(device_index=0)
-
-google_access_token = 'AIzaSyDn9D53ztPOLR5bGyQdjkxpRR3PCkNVJ5c'
  
+personal_name = new_name()
+
 def activate():
     try:
         with m as source:
-            r.adjust_for_ambient_noise(source)
             audio = r.listen(source)
-            transcript = r.recognize_google(audio, google_access_token, "ru-RU")
+            transcript = r.recognize_google(audio, language="ru-RU").lower()
             print(transcript)
             if (transcript.lower()).startswith(opts['alias']):
                 return True
@@ -38,24 +35,21 @@ def activate():
         return False
 
 def RecognizeSpeech():
-    if activate() == True:
+    if activate():
         voice = ''
         with m as f:
             print("Говорите...")
             getVoiceFromText("pip")
             play_audio()
-            audio = r.adjust_for_ambient_noise(f)
             audio = r.listen(f)
             try:
-                voice = r.recognize_google(audio, google_access_token, "ru-RU").lower()
-                print(voice)
-                    
+                voice = r.recognize_google(audio, language="ru_RU").lower()
+                print(voice) 
+                recognize(voice)     
             except sr.UnknownValueError:
-                pass
-            except sr.RequestError:
-                pass
-
-            recognize(voice)
+                print("[GoogleSR] Неизвестное выражение")
+            except sr.RequestError as e:
+                print("[GoogleSR] Не могу получить данные; {0}".format(e))
             
         
     
@@ -63,7 +57,6 @@ def RecognizeSpeech():
 #Распознавание голоса
 def recognize(voice):
     try:
-        
         cmd = voice
 
         for x in opts['tbr']:
@@ -77,6 +70,7 @@ def recognize(voice):
     except sr.RequestError:
         getVoiceFromText("Неизвестная ошибка, проверьте интернет!")
         play_audio()
+        pass
 
 
 opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
@@ -139,5 +133,13 @@ def execute_cmd(cmd, voice):
     
 
 if __name__ == "__main__":
+    getVoiceFromText("Пару секунд тишины пожалуйста. Калибровка.")
+    play_audio()
+
+    print("сек")
+    with m as source:
+        r.adjust_for_ambient_noise(source)
+
+    print("говор")
     while True:
         RecognizeSpeech()

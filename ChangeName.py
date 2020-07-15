@@ -19,7 +19,7 @@ def ChangeName():
         audio = r.adjust_for_ambient_noise(second)
         audio = r.listen(second)
     try:
-        name = r.recognize_google(audio, google_access_token, language="ru-RU").lower()
+        name = r.recognize_google(audio, language="ru-RU").lower()
         print("Вы сказали: " + name)
         getVoiceFromText("Прекр+асно! Теперь мое второе имя " + name.lower() + ". Перезапуст+и+те колонку для применения изменений")
         play_audio()
