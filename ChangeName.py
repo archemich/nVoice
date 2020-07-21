@@ -7,16 +7,14 @@ from TextFromVoice import getVoiceFromText
 from TheFirstSwitch import *
 from SupportTFS import *
 
-def ChangeName():
+def ChangeName(r):
     os.remove('answer.txt')
     f = open('answer.txt', 'w')
     getVoiceFromText("Да, конечно. Произнесите мое новое имя")    
     play_audio()
 
-    r = sr.Recognizer()
     with sr.Microphone(device_index = index) as second:
         print("Говорите...")
-        audio = r.adjust_for_ambient_noise(second)
         audio = r.listen(second)
     try:
         name = r.recognize_google(audio, language="ru-RU").lower()

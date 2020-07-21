@@ -35,7 +35,7 @@ def activate():
         return False
 
 def RecognizeSpeech():
-    if activate():
+    if True:
         voice = ''
         with m as f:
             print("Говорите...")
@@ -125,7 +125,7 @@ def execute_cmd(cmd, voice):
     elif cmd == 'weather':
         get_city(voice)
     elif cmd == 'changename':
-        personal_name = ChangeName()
+        personal_name = ChangeName(r)
         print(personal_name)
 
     getVoiceFromText('pibip')  
