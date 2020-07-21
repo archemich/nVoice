@@ -3,16 +3,12 @@ from pyglet import text
 from playAudio import play_audio
 from TextFromVoice import *
 
-index = 0
-
-def command():
+def command(r, index):
     getVoiceFromText("Привет, меня зовут nVoice. Я Ваш новый голосовой ассистент. Желаете ли вы задать мне второе имя?")    
     play_audio()
-    r = sr.Recognizer()
     while True:
         with sr.Microphone(device_index = index) as first:
             print("Говорите...")
-            audio = r.adjust_for_ambient_noise(first)
             audio = r.listen(first)
         try:
             otvet = r.recognize_google(audio, language="ru-RU").lower()
@@ -22,7 +18,7 @@ def command():
             getVoiceFromText("Простите, я не рассл+ышала.")
             play_audio()
 
-def zadanie(otvet):
+def zadanie(otvet, r, index):
     f = open('answer.txt', 'w')
 
     name = 'nvoice'
@@ -37,10 +33,8 @@ def zadanie(otvet):
     elif 'да' in otvet:
         getVoiceFromText("Произнесите н+овое имя.")
         play_audio()
-        r = sr.Recognizer()
         with sr.Microphone(device_index = index) as second:
             print("Говорите...")
-            audio = r.adjust_for_ambient_noise(second)
             audio = r.listen(second)
         try:
             name = r.recognize_google(audio, language="ru-RU").lower()

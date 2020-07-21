@@ -16,10 +16,20 @@ import speech_recognition as sr
 import os
 import time
 
+index = 6
+
 r = sr.Recognizer()
-m = sr.Microphone(device_index=0)
- 
-personal_name = new_name()
+m = sr.Microphone(device_index=index)
+
+##############################################################
+getVoiceFromText("Пару секунд тишины пожалуйста. Калибровка.")
+play_audio()
+print("сек")
+with m as source:
+    r.adjust_for_ambient_noise(source)
+print("говор")
+##############################################################
+personal_name = new_name(r, index)
 
 def activate():
     try:
@@ -125,7 +135,7 @@ def execute_cmd(cmd, voice):
     elif cmd == 'weather':
         get_city(voice)
     elif cmd == 'changename':
-        personal_name = ChangeName(r)
+        personal_name = ChangeName(r, index)
         print(personal_name)
 
     getVoiceFromText('pibip')  
@@ -133,13 +143,5 @@ def execute_cmd(cmd, voice):
     
 
 if __name__ == "__main__":
-    getVoiceFromText("Пару секунд тишины пожалуйста. Калибровка.")
-    play_audio()
-
-    print("сек")
-    with m as source:
-        r.adjust_for_ambient_noise(source)
-
-    print("говор")
     while True:
         RecognizeSpeech()

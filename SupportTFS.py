@@ -2,7 +2,7 @@ import os.path
 from TheFirstSwitch import *
 from TextFromVoice import getVoiceFromText
 
-def new_name():
+def new_name(r, index):
     check_file = os.path.exists('answer.txt')
     try:
         f = open('answer.txt', 'r')
@@ -16,6 +16,6 @@ def new_name():
     
     except FileNotFoundError:
         print('Заданное имя отсутствует') 
-        TFS = zadanie(command()).lower()
+        TFS = zadanie(command(r, index), r, index).lower()
         return TFS
 

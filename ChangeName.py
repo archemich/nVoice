@@ -7,7 +7,8 @@ from TextFromVoice import getVoiceFromText
 from TheFirstSwitch import *
 from SupportTFS import *
 
-def ChangeName(r):
+
+def ChangeName(r, index):
     os.remove('answer.txt')
     f = open('answer.txt', 'w')
     getVoiceFromText("Да, конечно. Произнесите мое новое имя")    
