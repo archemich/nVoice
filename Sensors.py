@@ -1,6 +1,11 @@
 from TextFromVoice import getVoiceFromText
 from playAudio import play_audio
 from random import randint
+import Adafruit_DHT
+
+sensor = Adafruit_DHT.DHT11
+pin = 4
+humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
 def sensor_CO2_status():
     CO2_status=randint(200,2001)
@@ -18,7 +23,7 @@ def sensor_CO2_status():
         getVoiceFromText(text = "Содержание углекислого газа в воздухе опасно для здоровья, необходимо срочно проветрить помещение")
     play_audio()
 def sensor_temp_status():
-    temp_status=randint(0,51)
+    temp_status=temperature
     if(temp_status==1 or temp_status==21 or temp_status==31 or temp_status==41 or temp_status==51):
         getVoiceFromText(text = "Температура сейчас {} градус".format(int(temp_status)))
     elif(temp_status>=2 and temp_status<=4):
@@ -33,7 +38,7 @@ def sensor_temp_status():
         getVoiceFromText(text = "Температура сейчас {} градусов".format(int(temp_status)))
     play_audio()
 def sensor_humidity_status():
-    hum_status=randint(0,101)
+    hum_status=humidity
     if(hum_status<=35):
         getVoiceFromText(text = "Влажность воздуха меньше тридцати пяти процентов, слишком сухо")
     elif(hum_status>35 and hum_status<=65):
@@ -43,6 +48,7 @@ def sensor_humidity_status():
     play_audio()
 
 def all_sensors_status():
+
     sensor_CO2_status()
     sensor_temp_status()
     sensor_humidity_status()
