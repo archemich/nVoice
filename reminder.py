@@ -69,8 +69,3 @@ class Timer:
                     time_index = -1
 
         return time_index
-
-
-
-
-timer1 = Timer('Напомни мне позвонить через 1 секунду')

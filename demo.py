@@ -8,6 +8,7 @@ from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
+from Reminder import Timer
 import requests
 import json
 
@@ -84,7 +85,7 @@ def recognize(voice):
 
 
 opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим', 'поменяй', 'измени'),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим', 'поменяй', 'измени', 'напомни'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
@@ -95,7 +96,8 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "co2": ('цо2', 'co2', 'углекислый газ', 'газ'),
              "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты'),
              "weather": ('погода в', 'погода'),
-             "changename": ('имя', 'название')
+             "changename": ('имя', 'название'),
+             "remindMe": ('мне')
              }}
 
 def recognize_cmd(cmd):
@@ -137,6 +139,9 @@ def execute_cmd(cmd, voice):
     elif cmd == 'changename':
         personal_name = ChangeName(r, index)
         print(personal_name)
+    elif cmd == 'remindMe':
+        Timer(voice)
+
 
     getVoiceFromText('pibip')  
     play_audio()
