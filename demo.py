@@ -17,7 +17,7 @@ import speech_recognition as sr
 import os
 import time
 
-index = 6
+index = 0
 
 r = sr.Recognizer()
 m = sr.Microphone(device_index=index)
@@ -63,19 +63,19 @@ def RecognizeSpeech():
                 print("[GoogleSR] Не могу получить данные; {0}".format(e))
             
         
-    
-
 #Распознавание голоса
 def recognize(voice):
     try:
-        cmd = voice
+        for _ in opts['alias']:
+            if _ in voice:
+                cmd = voice
 
-        for x in opts['tbr']:
-            cmd = cmd.replace(x, "").strip()
+                for x in opts['tbr']:
+                    cmd = cmd.replace(x, "").strip()
 
-        voice = cmd
-        cmd = recognize_cmd(cmd)
-        execute_cmd(cmd['cmd'], voice)
+                voice = cmd
+                cmd = recognize_cmd(cmd)
+                execute_cmd(cmd['cmd'], voice)
     except sr.UnknownValueError:
         pass
     except sr.RequestError:
@@ -118,7 +118,7 @@ def execute_cmd(cmd, voice):
     if cmd == 'ctime' :
         localtime()
     elif cmd == 'shutdown':
-        #os.system('shutdown -s')
+        os.system('sudo shutdown -h now')
         getVoiceFromText("Выключаюсь...")
         play_audio()
     elif cmd == 'charge':
