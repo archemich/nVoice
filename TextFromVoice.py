@@ -5,8 +5,8 @@ import os
 import requests
 
 
-OATH_TOKEN = "AgAAAABF-ZKlAATuwXupQXQKokEij9eSjc3PVnU"
-FOLDER_ID = "b1gi18fhp7j1jp4j5lr5"
+OATH_TOKEN = "AgAAAAAVsAZxAATuwU7C3SKJhUrotg4wfAwpELE"
+FOLDER_ID = "b1gn5u1km3uptg8mrs39"
 IAM_TOKEN = getIAMToken(OATH_TOKEN)
 
 
