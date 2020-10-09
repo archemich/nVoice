@@ -9,6 +9,7 @@ from Sensors import *
 from ChangeName import *
 from Weather import get_city
 from Reminder import Timer
+from VoiceControl import setVolume
 import requests
 import json
 
@@ -97,7 +98,8 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты'),
              "weather": ('погода в', 'погода'),
              "changename": ('имя', 'название'),
-             "remindMe": ('мне')
+             "remindMe": ('мне'),
+             "setVolume": ('громкость')
              }}
 
 def recognize_cmd(cmd):
@@ -141,6 +143,8 @@ def execute_cmd(cmd, voice):
         print(personal_name)
     elif cmd == 'remindMe':
         Timer(voice)
+    elif cmd == 'setVolume':
+        setVolume(voice)
 
 
     getVoiceFromText('pibip')  
