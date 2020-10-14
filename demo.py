@@ -144,10 +144,11 @@ def execute_cmd(cmd, voice):
     elif cmd == 'wiki':
         question = voice.split()
         question = question[2:]
-        print(question)     
-        page = wiki_wiki.page(question)
-        GetVoiceFromText(page.summary)
-        play_audio()
+        print(question)
+        if question != "":     
+            page = wiki_wiki.page(question)
+            getVoiceFromText(page.summary)
+            play_audio()
     elif cmd == 'setVolume':
 	    setVolume(voice)
     #elif cmd == 'remindMe':
