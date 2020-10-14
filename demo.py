@@ -8,12 +8,11 @@ from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
-#from Reminder import Timer
 from Reminder import Timer
 from VoiceControl import setVolume
 import requests
 import json
-import wikipedia
+import wikipediaapi
 
 import speech_recognition as sr
 import os
@@ -34,7 +33,7 @@ print("говор")
 ##############################################################
 personal_name = new_name(r, index)
 
-wikipedia.set_lang("RU")
+wiki_wiki = wikipediaapi.Wikipedia('ru')
 
 def activate():
     try:
@@ -143,7 +142,11 @@ def execute_cmd(cmd, voice):
         personal_name = ChangeName(r, index)
         print(personal_name)
     elif cmd == 'wiki':
-	    GetVoiceFromText(wikipedia.summary(voice))
+        question = voice.split()
+        question = question[2:]
+        print(question)
+        page = wiki_wiki.page(question)
+        GetVoiceFromText(page.summary)
 	    play_audio()
     elif cmd == 'setVolume':
 	    setVolume(voice)
