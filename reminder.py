@@ -1,10 +1,11 @@
 import time
+from threading import Timer
 from playAudio import play_audio
 from TextFromVoice import getVoiceFromText
 
 
 
-class Timer:
+class Reminder:
     def __init__(self, text=None):
         self._text = text
         self._secs = 0
@@ -12,11 +13,11 @@ class Timer:
         if text != None:
             text.lower()
             self._text = self.parse(text)
-        self.remind()    
+        t = Timer(self._secs, self.remind)
+        t.start()  
 
 
     def remind(self):
-        time.sleep(self._secs)
         if self._text == None:
             play_audio(alarm)
         else:
@@ -69,3 +70,4 @@ class Timer:
                     time_index = -1
 
         return time_index
+
