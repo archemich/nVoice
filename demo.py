@@ -8,10 +8,10 @@ from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
-from Reminder import Timer
+#from Reminder import Timer
 import requests
 import json
-
+import wikipedia
 
 import speech_recognition as sr
 import os
@@ -55,27 +55,24 @@ def RecognizeSpeech():
             audio = r.listen(f)
             try:
                 voice = r.recognize_google(audio, language="ru_RU").lower()
-                print(voice) 
-                recognize(voice)     
+                print(voice)
+                recognize(voice)
             except sr.UnknownValueError:
                 print("[GoogleSR] Неизвестное выражение")
             except sr.RequestError as e:
                 print("[GoogleSR] Не могу получить данные; {0}".format(e))
-            
-        
+
 #Распознавание голоса
 def recognize(voice):
     try:
-        for _ in opts['alias']:
-            if _ in voice:
-                cmd = voice
+        cmd = voice
 
-                for x in opts['tbr']:
-                    cmd = cmd.replace(x, "").strip()
+        for x in opts['tbr']:
+            cmd = cmd.replace(x, "").strip()
 
-                voice = cmd
-                cmd = recognize_cmd(cmd)
-                execute_cmd(cmd['cmd'], voice)
+        voice = cmd
+        cmd = recognize_cmd(cmd)
+        execute_cmd(cmd['cmd'], voice)
     except sr.UnknownValueError:
         pass
     except sr.RequestError:
@@ -85,7 +82,7 @@ def recognize(voice):
 
 
 opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice', 'войс', 'нвс', 'энн воис', 'нваэс', 'н вайс', personal_name),
-        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим', 'поменяй', 'измени', 'напомни'),
+        "tbr": ('скажи', 'расскажи', 'покажи', 'сколько', 'произнеси', 'как', 'сколько', 'какая', 'насколько', 'давай сменим', 'поменяй', 'измени', 'напомни', 'какое','что','кто'),
         "cmds":
             {"ctime": ('текущее время', 'сейчас времени', 'который час', 'время', 'какое сейчас время'),
              "charge": ('заряда','процентов','ты заряжен','ты разряжен'),
@@ -97,7 +94,8 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "commonCond": ('состояние помещения', 'состояние', 'состояние комнаты'),
              "weather": ('погода в', 'погода'),
              "changename": ('имя', 'название'),
-             "remindMe": ('мне')
+             "remindMe": ('мне'),
+	     "wiki":('такое','такая','такой')
              }}
 
 def recognize_cmd(cmd):
@@ -139,13 +137,11 @@ def execute_cmd(cmd, voice):
     elif cmd == 'changename':
         personal_name = ChangeName(r, index)
         print(personal_name)
-    elif cmd == 'remindMe':
-        Timer(voice)
+    elif cmd == 'wiki':
+	GetVoiceFromText(wikipedia.summary(voice,sentences=2))
+	play_audio()
 
-
-    getVoiceFromText('pibip')  
-    play_audio()
-    
+    getVoiceFromText('pibip')
 
 if __name__ == "__main__":
     while True:
