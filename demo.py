@@ -8,8 +8,8 @@ from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
-from Reminder import Timer
-from VoiceControl import setVolume
+#from Reminder import Timer
+#from VoiceControl import setVolume
 import requests
 import json
 import wikipediaapi
