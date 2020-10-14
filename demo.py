@@ -8,12 +8,9 @@ from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
-<<<<<<< HEAD
 #from Reminder import Timer
-=======
 from Reminder import Timer
 from VoiceControl import setVolume
->>>>>>> 1b6c08a45786c05d9ab149134f26787845253b2f
 import requests
 import json
 import wikipedia
@@ -100,11 +97,8 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "weather": ('погода в', 'погода'),
              "changename": ('имя', 'название'),
              "remindMe": ('мне'),
-<<<<<<< HEAD
 	     "wiki":('такое','такая','такой')
-=======
              "setVolume": ('громкость')
->>>>>>> 1b6c08a45786c05d9ab149134f26787845253b2f
              }}
 
 def recognize_cmd(cmd):
@@ -146,17 +140,14 @@ def execute_cmd(cmd, voice):
     elif cmd == 'changename':
         personal_name = ChangeName(r, index)
         print(personal_name)
-<<<<<<< HEAD
     elif cmd == 'wiki':
 	GetVoiceFromText(wikipedia.summary(voice,sentences=2))
 	play_audio()
-=======
     elif cmd == 'remindMe':
         Timer(voice)
     elif cmd == 'setVolume':
         setVolume(voice)
 
->>>>>>> 1b6c08a45786c05d9ab149134f26787845253b2f
 
     getVoiceFromText('pibip')
 
