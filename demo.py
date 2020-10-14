@@ -34,6 +34,8 @@ print("говор")
 ##############################################################
 personal_name = new_name(r, index)
 
+wikipedia.set_lang("RU")
+
 def activate():
     try:
         with m as source:
