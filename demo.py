@@ -97,7 +97,7 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "weather": ('погода в', 'погода'),
              "changename": ('имя', 'название'),
              "remindMe": ('мне'),
-	     "wiki":('такое','такая','такой')
+	     "wiki":('такое','такая','такой'),
              "setVolume": ('громкость')
              }}
 
@@ -144,9 +144,9 @@ def execute_cmd(cmd, voice):
 	GetVoiceFromText(wikipedia.summary(voice,sentences=2))
 	play_audio()
     elif cmd == 'remindMe':
-        Timer(voice)
+	Timer(voice)
     elif cmd == 'setVolume':
-        setVolume(voice)
+	setVolume(voice)
 
 
     getVoiceFromText('pibip')
