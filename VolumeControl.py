@@ -33,6 +33,5 @@ BUTTONUP = 29
 BUTTONDOWN = 31
 GPIO.setup(BUTTONUP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(BUTTONDOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(BUTTONUP, GPIO.FALLING, callback=changeVolume(vol+VOLSTEP))
-GPIO.add_event_detect(BUTTONDOWN, GPIO.FALLING, callback=changeVolume(vol-VOLSTEP))
-
+GPIO.add_event_detect(BUTTONUP, GPIO.FALLING, callback=changeVolume(vol+VOLSTEP), bouncetime=100)
+GPIO.add_event_detect(BUTTONDOWN, GPIO.FALLING, callback=changeVolume(vol-VOLSTEP), bouncetime=100)
