@@ -8,7 +8,7 @@ sensor = Adafruit_DHT.DHT11
 pin = 4
 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
-DEV_ADDR = 0x47
+DEV_ADDR = 0x48
 adc_channel = 0b1000010
 dac_channel = 0b1000000
 bus = smbus.SMBus(1)
@@ -18,7 +18,8 @@ def sensor_CO2_status():
     bus.read_byte(DEV_ADDR)
     bus.read_byte(DEV_ADDR)
     CO2_status = bus.read_byte(DEV_ADDR)
-    if(CO2_status <= 120):
+    print(CO2_status)
+    if(CO2_status < 60):
         getVoiceFromText(text = "Содержание углекислого газа в воздухе нормальное, все в порядке")
     else:
         getVoiceFromText(text = "Содержание углекислого газа в воздухе повышено, необходимо проветрить помещение")
@@ -54,3 +55,4 @@ def all_sensors_status():
     sensor_CO2_status()
     sensor_temp_status()
     sensor_humidity_status()
+

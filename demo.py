@@ -8,8 +8,8 @@ from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
-from Reminder import Timer
-from VoiceControl import setVolume
+#from Reminder import Timer
+#from VoiceControl import setVolume
 import requests
 import json
 import wikipediaapi
@@ -143,10 +143,10 @@ def execute_cmd(cmd, voice):
         print(personal_name)
     elif cmd == 'wiki':
         question = voice.split()
-        question = question[2:]
+        question = question[1:]
         print(question)     
         page = wiki_wiki.page(question)
-        GetVoiceFromText(page.summary)
+        getVoiceFromText(page.summary)
         play_audio()
     elif cmd == 'setVolume':
 	    setVolume(voice)
