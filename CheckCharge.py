@@ -4,7 +4,9 @@ import psutil
 
 def charge_status():
 
+    print(psutil.sensors_battery())
     charge = psutil.sensors_battery().percent
+
 
     if (charge == 100):
         getVoiceFromText(text = "nVoice полностью зар+яжен!")
