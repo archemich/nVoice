@@ -9,7 +9,7 @@ from Sensors import *
 from ChangeName import *
 from Weather import get_city
 #from Reminder import Timer
-#from VoiceControl import setVolume
+import VoiceControl
 import requests
 import json
 import wikipediaapi
