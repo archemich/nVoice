@@ -1,3 +1,4 @@
+from functools import partial
 from alsaaudio import Mixer
 from playAudio import play_audio
 from TextFromVoice import getVoiceFromText
