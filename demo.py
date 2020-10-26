@@ -9,7 +9,7 @@ from Sensors import *
 from ChangeName import *
 from Weather import get_city
 #from Reminder import Timer
-import VolumeControl
+#import VolumeControl
 import requests
 import json
 import wikipediaapi
@@ -153,8 +153,8 @@ def execute_cmd(cmd, voice):
             page = wiki_wiki.page(question)
             getVoiceFromText(page.summary)
             play_audio()
-    elif cmd == 'setVolume':
-	    setVolume(voice)
+    #elif cmd == 'setVolume':
+	    #setVolume(voice)
     #elif cmd == 'remindMe':
 	    #Timer(voice)
 
