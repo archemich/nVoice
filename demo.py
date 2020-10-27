@@ -2,17 +2,18 @@ from playAudio import play_audio
 from fuzzywuzzy import fuzz
 from TextFromVoice import getVoiceFromText
 from TimeChecker import localtime
+from FeatureOverview import OverView
 from CheckCharge import accurate_charge_percent
 from TheFirstSwitch import *
-from SupportTFS import *
 from Sensors import * 
 from ChangeName import *
 from Weather import get_city
 #from Reminder import Timer
-#import VolumeControl
+import VolumeControl
 import requests
 import json
 import wikipediaapi
+from SupportTFS import *
 
 import speech_recognition as sr
 import os
@@ -97,8 +98,9 @@ opts = {"alias": ('nvoice', 'нвойс', 'энвойс', 'инвойс', 'voice
              "weather": ('погода в', 'погода'),
              "changename": ('имя', 'название'),
              "remindMe": ('мне'),
-	         "wiki":('такое','такая','такой'),
-             "setVolume": ('громкость')
+	     "wiki":('такое','такая','такой'),
+             "setVolume": ('громкость', 'громкости', 'громкостью'),
+             "features": ('умеешь', 'возможности')
              }}
 
 def recognize_cmd(cmd):
@@ -153,8 +155,11 @@ def execute_cmd(cmd, voice):
             page = wiki_wiki.page(question)
             getVoiceFromText(page.summary)
             play_audio()
-    #elif cmd == 'setVolume':
-	    #setVolume(voice)
+    elif cmd == 'setVolume':
+        VolumeControl.setVolume(voice)
+        print('меняю громкость')
+    elif cmd == 'features':
+        OverView()
     #elif cmd == 'remindMe':
 	    #Timer(voice)
 
